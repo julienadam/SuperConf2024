@@ -1,10 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SuperConf2024.Models;
+using SuperConf2024.Services;
 
 namespace SuperConf2024.Controllers
 {
     public class InscriptionController : Controller
     {
+        private readonly IInscription inscription;
+
+        public InscriptionController(IInscription inscription)
+        {
+            this.inscription = inscription;
+        }
+
         // GET: Inscription
         public ActionResult Index()
         {
@@ -16,10 +24,21 @@ namespace SuperConf2024.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(InscriptionViewModel viewModel)
         {
+            if(!inscription.HasPlacesDisponibles())
+            {
+                return RedirectToAction("Surcapacite");
+            }
+
+            if(!inscription.IsEmailUnique(viewModel.Email))
+            {
+                ModelState.AddModelError(nameof(InscriptionViewModel.Email), "Cet email est déja inscrit.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    inscription.Enregistrer(viewModel);
                     return RedirectToAction(nameof(Succes));
                 }
                 catch
@@ -37,6 +56,11 @@ namespace SuperConf2024.Controllers
         public ActionResult Succes() 
         {
             return Content("Inscription enregistrée ! A très bientôt à SuperConf 2024");
+        }
+
+        public ActionResult Surcapacite()
+        {
+            return Content("Toutes les places ont été réservées, veuillez tenter votre chance plus tard !");
         }
     }
 }
