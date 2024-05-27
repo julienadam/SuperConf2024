@@ -7,12 +7,12 @@ namespace SuperConf2024.Services
         bool Enregistrer(InscriptionViewModel viewModel);
         bool IsEmailUnique(string email);
         bool HasPlacesDisponibles();
+        int PlacesRestantes();
     }
 
     public class FakeInscription : IInscription
     {
         private readonly int capa;
-        private int nb = 0;
         private readonly HashSet<string> emails = [];
 
         public FakeInscription(int capa)
@@ -28,8 +28,12 @@ namespace SuperConf2024.Services
 
         public bool HasPlacesDisponibles()
         {
-            nb++;
-            return nb <= capa;
+            return PlacesRestantes() > 0;
+        }
+
+        public int PlacesRestantes()
+        {
+            return capa - emails.Count;
         }
 
         public bool IsEmailUnique(string email)

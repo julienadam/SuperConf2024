@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SuperConf2024.Models;
+using SuperConf2024.Services;
 using System.Diagnostics;
 
 namespace SuperConf2024.Controllers
@@ -7,15 +8,21 @@ namespace SuperConf2024.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IInscription inscription;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IInscription inscription)
         {
             _logger = logger;
+            this.inscription = inscription;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new IndexViewModel
+            {
+                PlacesRestantes = inscription.PlacesRestantes()
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

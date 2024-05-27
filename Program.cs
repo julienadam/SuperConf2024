@@ -4,7 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IInscription>(new FakeInscription(2));
+
+var capacite = int.TryParse(builder.Configuration["Capacite"], out int c) ? c : 0;
+
+builder.Services.AddSingleton<IInscription>(new FakeInscription(capacite));
 
 var app = builder.Build();
 
