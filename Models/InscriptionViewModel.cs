@@ -20,9 +20,9 @@ namespace SuperConf2024.Models
         [DataType(DataType.Date)]
         public DateTime DateNaissance { get; set; } = new DateTime(2000, 01, 01);
 
-        [DisplayName("Nombre de jours de conférence (2 ou 3")]
-        [Range(2, 3)]
-        [DefaultValue(3)]
+        [DisplayName("Nombre de jours de conférence")]
+        //[Range(2, 3)]
+        //[DefaultValue(3)]
         public int NbJours { get; set; } = 3;
 
         [DisplayName("Choix du type de repas")]

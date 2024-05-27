@@ -32,7 +32,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="NbJours" class="control-label"></label>
-                <input asp-for="NbJours" class="form-control" />
+                <br/>
+                @Html.RadioButtonFor(m => m.NbJours, 2) 
+                2 jours
+                @Html.RadioButtonFor(m => m.NbJours, 3)
+                3 jours
                 <span asp-validation-for="NbJours" class="text-danger"></span>
             </div>
             <div class="form-group">
