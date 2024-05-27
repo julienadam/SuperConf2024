@@ -1,36 +1,42 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SuperConf2024.Models;
 
 namespace SuperConf2024.Controllers
 {
     public class InscriptionController : Controller
     {
-        // GET: InscriptionController
+        // GET: Inscription
         public ActionResult Index()
         {
-            return Content("Ici le formulaire d'inscription");
-            // return View();
+            return View(new InscriptionViewModel());
         }
 
-        // GET: InscriptionController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: InscriptionController/Create
+        // POST: Inscription
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Index(InscriptionViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    return RedirectToAction(nameof(Succes));
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
+            else
             {
                 return View();
             }
+        }
+
+        // GET : /Inscription/Succes
+        public ActionResult Succes() 
+        {
+            return Content("Inscription enregistrée ! A très bientôt à SuperConf 2024");
         }
     }
 }
