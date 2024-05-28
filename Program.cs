@@ -1,5 +1,8 @@
+using QuestPDF.Infrastructure;
 using SuperConf2024.Entities;
 using SuperConf2024.Services;
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 
