@@ -8,8 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<SuperconfdbContext>();
-builder.Services.AddScoped<IInscriptionService, DbInscriptionService>();
+
+if (builder.Configuration["USE_FAKES"] == "1")
+{
+    builder.Services.AddSingleton<IInscriptionService, FakeInscriptionService>();
+}
+else
+{
+    builder.Services.AddDbContext<SuperconfdbContext>();
+    builder.Services.AddScoped<IInscriptionService, DbInscriptionService>();
+}
 
 var app = builder.Build();
 

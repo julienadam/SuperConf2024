@@ -1,11 +1,10 @@
-﻿using Azure.Storage;
+﻿using Azure.Identity;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using SuperConf2024.Entities;
 
 namespace SuperConf2024.Controllers
@@ -13,41 +12,38 @@ namespace SuperConf2024.Controllers
     public class TestController : Controller
     {
         private readonly IConfiguration config;
-        private readonly SuperconfdbContext context;
-
-        public TestController(IConfiguration config, SuperconfdbContext context)
+        
+        public TestController(IConfiguration config)
         {
             this.config = config;
-            this.context = context;
         }
 
         public IActionResult Blob()
         {
-            var accountName = config["StorageAccount"];
-            var key = config["BlobKey"];
-            var sharedKeyCredential =
-               new StorageSharedKeyCredential(accountName, key);
-
+            var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = config["ManagedIdentityClientId"] });
+            var account = config["StorageAccount"];
             var client = new BlobServiceClient(
-                new Uri($"https://{accountName}.blob.core.windows.net/"),
-                sharedKeyCredential);
+                new Uri($"https://{account}.blob.core.windows.net/"),
+                credential);
 
             var containerName = "tickets";
             var containerClient = client.GetBlobContainerClient(containerName);
 
-            var blobClient = containerClient.GetBlobClient("test.txt");
-            blobClient.Upload(new BinaryData("Foo"));
+            var blobClient = containerClient.GetBlobClient(Guid.NewGuid().ToString());
+            blobClient.Upload(new BinaryData(DateTime.Now.ToString()));
 
             return Content("Upload OK");
         }
 
-        public IActionResult Index()
+        public IActionResult QrCode()
         {
-            Inscription inscription = new Inscription();
-            inscription.Email = "foo@bar.com";
-            inscription.Nom = "Martin";
-            inscription.Prenom = "Robert";
-            inscription.DateNaissance = new DateTime(1987, 8, 5);
+            Inscription inscription = new Inscription
+            {
+                Email = "foo@bar.com",
+                Nom = "Martin",
+                Prenom = "Robert",
+                DateNaissance = new DateTime(1987, 8, 5)
+            };
 
             var json = System.Text.Json.JsonSerializer.Serialize(inscription);
             

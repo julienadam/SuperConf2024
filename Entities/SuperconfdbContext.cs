@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SuperConf2024.Entities;
 
@@ -18,7 +16,7 @@ public partial class SuperconfdbContext : DbContext
     public virtual DbSet<Inscription> Inscriptions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=AZURE_SQL_CONNECTIONSTRING");
+        => optionsBuilder.UseSqlServer("Name=AZURE_SQL_CONNECTIONSTRING", o => o.UseAzureSqlDefaults());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

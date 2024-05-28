@@ -18,6 +18,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "http fakes": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5174",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USE_FAKES": "1"
+      }
+    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,

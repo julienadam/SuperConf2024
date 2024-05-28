@@ -1,4 +1,10 @@
-﻿drop table inscription;
+﻿DROP USER SuperConf2024Identity;
+
+CREATE USER SuperConf2024Identity FROM EXTERNAL PROVIDER;
+ALTER ROLE db_datareader ADD MEMBER SuperConf2024Identity;
+ALTER ROLE db_datawriter ADD MEMBER SuperConf2024Identity;
+
+drop table inscription;
 go
 
 create table inscription

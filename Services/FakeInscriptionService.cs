@@ -7,9 +7,9 @@ namespace SuperConf2024.Services
         private readonly int capa;
         private readonly HashSet<string> emails = [];
 
-        public FakeInscriptionService(int capa)
+        public FakeInscriptionService(IConfiguration config)
         {
-            this.capa = capa;
+            this.capa = int.Parse(config["Capacite"] ?? "0");
         }
 
         public int Enregistrer(Inscription viewModel)
