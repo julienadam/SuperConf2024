@@ -1,13 +1,12 @@
+using SuperConf2024.Entities;
 using SuperConf2024.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-var capacite = int.TryParse(builder.Configuration["Capacite"], out int c) ? c : 0;
-
-builder.Services.AddSingleton<IInscription>(new FakeInscription(capacite));
+builder.Services.AddDbContext<SuperconfdbContext>();
+builder.Services.AddScoped<IInscriptionService, DbInscriptionService>();
 
 var app = builder.Build();
 

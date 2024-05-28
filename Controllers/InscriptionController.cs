@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SuperConf2024.Entities;
 using SuperConf2024.Models;
 using SuperConf2024.Services;
 
@@ -6,11 +7,11 @@ namespace SuperConf2024.Controllers
 {
     public class InscriptionController : Controller
     {
-        private readonly IInscription inscription;
+        private readonly IInscriptionService inscriptionService;
 
-        public InscriptionController(IInscription inscription)
+        public InscriptionController(IInscriptionService inscriptionService)
         {
-            this.inscription = inscription;
+            this.inscriptionService = inscriptionService;
         }
 
         // GET: Inscription
@@ -24,12 +25,12 @@ namespace SuperConf2024.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(InscriptionViewModel viewModel)
         {
-            if(!inscription.HasPlacesDisponibles())
+            if(!inscriptionService.HasPlacesDisponibles())
             {
                 return RedirectToAction("Surcapacite");
             }
 
-            if(!inscription.IsEmailUnique(viewModel.Email))
+            if(!inscriptionService.IsEmailUnique(viewModel.Email))
             {
                 ModelState.AddModelError(nameof(InscriptionViewModel.Email), "Cet email est déja inscrit.");
             }
@@ -38,7 +39,19 @@ namespace SuperConf2024.Controllers
             {
                 try
                 {
-                    inscription.Enregistrer(viewModel);
+                    var inscription = new Inscription
+                    {
+                        Email = viewModel.Email,
+                        Nbjours = viewModel.NbJours,
+                        DemandeParticuliere = viewModel.DemandeParticuliere,
+                        DateNaissance = viewModel.DateNaissance,
+                        Prenom = viewModel.Prenom,
+                        Nom = viewModel.Nom,
+                        ChoixRepas = viewModel.ChoixRepas.ToString(),
+                        Soiree = viewModel.Soiree
+                    };
+
+                    inscriptionService.Enregistrer(inscription);
                     return RedirectToAction(nameof(Succes));
                 }
                 catch

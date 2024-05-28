@@ -8,9 +8,9 @@ namespace SuperConf2024.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IInscription inscription;
+        private readonly IInscriptionService inscription;
 
-        public HomeController(ILogger<HomeController> logger, IInscription inscription)
+        public HomeController(ILogger<HomeController> logger, IInscriptionService inscription)
         {
             _logger = logger;
             this.inscription = inscription;
