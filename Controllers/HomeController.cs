@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SuperConf2024.Models;
 using SuperConf2024.Services;
@@ -23,6 +24,12 @@ namespace SuperConf2024.Controllers
                 PlacesRestantes = inscription.PlacesRestantes()
             };
             return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult Claims()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
