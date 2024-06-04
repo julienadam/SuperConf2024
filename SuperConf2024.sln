@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperConf2024", "Web/SuperConf2024.csproj", "{BB7AA786-8E3B-432D-A95B-23DE1FFAC842}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperConf2024", "Web\SuperConf2024.csproj", "{BB7AA786-8E3B-432D-A95B-23DE1FFAC842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperConf2024.UnitTests", "Tests\SuperConf2024.UnitTests.csproj", "{415158C8-5A3C-4D4A-ACDF-7DA0ED15835B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BB7AA786-8E3B-432D-A95B-23DE1FFAC842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB7AA786-8E3B-432D-A95B-23DE1FFAC842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB7AA786-8E3B-432D-A95B-23DE1FFAC842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415158C8-5A3C-4D4A-ACDF-7DA0ED15835B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415158C8-5A3C-4D4A-ACDF-7DA0ED15835B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415158C8-5A3C-4D4A-ACDF-7DA0ED15835B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415158C8-5A3C-4D4A-ACDF-7DA0ED15835B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
